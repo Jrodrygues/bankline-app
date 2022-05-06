@@ -39,7 +39,7 @@ export class MovimentacaoesNewComponent implements OnInit {
   }
   save(): void {
     console.log(this.correntista)
-    const movimentacao = {
+    const movimentacaoes = {
       valor:this.valor,
       descricao:this.descricao,
       tipo:this.tipo,
@@ -47,8 +47,8 @@ export class MovimentacaoesNewComponent implements OnInit {
       dataHora:this.dataHora
 
     };
-    console.log(movimentacao);
-    this.movimentacaoesService.create(movimentacao)
+    console.log(movimentacaoes);
+    this.movimentacaoesService.create(movimentacaoes)
       .subscribe(
         response => {
           console.log(response);

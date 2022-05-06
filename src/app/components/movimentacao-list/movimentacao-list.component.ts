@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CorrentistaService } from 'src/app/services/correntista.service';
 import { MovimentacaoesService } from 'src/app/services/movimentacao.service';
 
 @Component({
@@ -10,14 +11,19 @@ import { MovimentacaoesService } from 'src/app/services/movimentacao.service';
 
 export class MovimentacaoesListComponent implements OnInit {
   movimentacoes:any;
+  correntista:any={};
+  correntistas:any;
 
-  constructor(private movimentacaoesService: MovimentacaoesService) { }
+  constructor(
+    private movimentacaoesService: MovimentacaoesService,
+    private correntistaService: CorrentistaService,
+    ) { }
 
   ngOnInit(): void {
-    this.listMovimentacoes();
+    this.exibirCorrentistas();
   }
   listMovimentacoes(): void {
-    this.movimentacaoesService.list()
+    this.movimentacaoesService.findByIdConta(this.correntista.id)
       .subscribe(
         data => {
           this.movimentacoes = data;
@@ -27,5 +33,15 @@ export class MovimentacaoesListComponent implements OnInit {
           console.log(error);
         });
   }
-
+  exibirCorrentistas(): void {
+    this.correntistaService.list()
+      .subscribe(
+        data => {
+          this.correntistas = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }
